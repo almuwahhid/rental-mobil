@@ -32,6 +32,12 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
             <h5 class="card-header">List User</h5>
+            <?php
+                  if(($this->session->flashdata('alert')) !== null){
+                      $message = $this->session->flashdata('alert');
+                      $this->load->view('bodyview/alert', ['class' => $message['class'], 'message' => $message['message']]);
+                  }
+              ?>
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table">
@@ -40,7 +46,7 @@
                       <th class="border-0 centerHorizontal" style="width:20px">No</th>
                       <th class="border-0">Email</th>
                       <th class="border-0">Nama Lengkap</th>
-                      <th class="border-0">Pekerjaan</th>
+                      <th class="border-0">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,21 +58,21 @@
                           <?= ++$no;?>
                         </td>
                         <td>
-                          <?= $$user->username ?>
+                          <?= $user->username ?>
                         </td>
                         <td>
                           <?= $user->nama_lengkap ?>
                         </td>
                         <td>
-                          <a href='<?= base_url()."/user/detail/".$user->username; ?>'>
-                            <i class="fas fa-edit"></i>
+                          <a href='<?= base_url()."user/detail/".$user->id_member; ?>'>
+                            <i class="fas fa-search"></i>
                           </a> &nbsp;&nbsp;
                           <?php
                             if($user->aktif == 'N'){
                               ?>
-                                <a class="btn btn-brand" href="<?= base_url()."/user/konfirmasi?username=".$user->username; ?>">
-                                  konfirmasi
-                                </a>
+                              <a href="#" class="btn btn-brand" onclick="redirectMessage('<?= base_url()."user/konfirmasi?username=".$user->username; ?>', 'Apakah Anda yakin ingin mengkonfirmasi user ini')">
+                                konfirmasi
+                              </a>
                               <?php
                             }
                           ?>

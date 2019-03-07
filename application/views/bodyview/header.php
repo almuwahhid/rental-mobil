@@ -115,14 +115,25 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-users"></i>User</a>
-                            </li>
                             <li class="nav-divider">
-                                Lainnya
+                                Progress
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="index.php?page=logout"><i class="fas fa-book"></i>Laporan</a>
+                                <a class="nav-link<?php if($page == "user")echo " active";?>" href="<?= base_url()?>user"><i class="fas fa-users"></i>User</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link<?php if($page == "laporan")echo " active";?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-2"><i class="fas fa-book"></i>Laporan </a>
+                                <!-- <span class="badge badge-success">6</span> -->
+                                <div id="submenu-4" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="<?= base_url()?>">Daftar Wisata</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="<?= base_url()?>">Tambah Wisata</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>

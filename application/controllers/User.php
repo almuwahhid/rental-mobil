@@ -45,23 +45,36 @@ class User extends BaseController {
 
 
   public function index() {
-    $wisata = $this->wisata_model->get();
-    parent::getView('m_wisata/listwisata', 'wisata', $wisata);
+    $users = $this->users_model->get_users();
+    parent::getView('m_konfirmasiuser/listuser', 'user', $users);
   }
 
-  public function tambah(){
-    $data = $this->wisata_model->get();
-    parent::getView('m_wisata/formwisata', 'wisata', $data);
-  }
+  public function detail($id_member){
+    $model = $this->users_model->get_detail_user($id_member);
 
-  public function detail($id){
-    $model = $this->main_model->getDetail("wisata", ['id_wisata' => $id]);
-		$data = $model;
 
 		if(!$model) {
 			echo "Wisata tidak ada";die();
-		}
-		parent::getView('m_wisata/detailwisata', 'model', $data);
+		} else {
+      $data = $model;
+      parent::getView('m_konfirmasiuser/detailuser', 'user', $data);
+    }
+  }
+
+  public function konfirmasi(){
+    $username = $this->input->get('username');
+    $data = array(
+      'aktif' => 'Y'
+    );
+    $insert = $this->main_model->update($data, 'users', ['username' => $username]);
+    if ($insert) {
+      $this->session->set_flashdata('alert', array('message' => 'Berhasil mengkonfirmasi user','class' => 'success'));
+      redirect('user');
+    }
+    else {
+      $this->session->set_flashdata('alert', array('message' => 'Gagal mengkonfirmasi user','class' => 'danger'));
+      redirect('user');
+    }
   }
 
   public function simpan(){
@@ -72,7 +85,7 @@ class User extends BaseController {
     $data = array(
       'nama_wisata' => $nama_wisata,
       'keterangan' => $keterangan,
-      'biaya' => str_replace('.', '', $biaya),
+      'biaya' => str_replace('.', '', $biaya)
     );
 
 

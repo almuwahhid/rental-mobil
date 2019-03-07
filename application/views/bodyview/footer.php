@@ -65,6 +65,12 @@
         window.location.href = url;
       }
     }
+    function redirectMessage(url, message){
+      var x = confirm(message);
+      if(x){
+        window.location.href = url;
+      }
+    }
 
     CKEDITOR.replace( 'editor1', {
       // Define the toolbar: http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_toolbar

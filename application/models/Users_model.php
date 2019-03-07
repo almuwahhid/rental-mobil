@@ -91,6 +91,20 @@ class Users_model extends CI_Model {
 		return (object) $this->db->get()->row();
 	}
 
+	public function get_detail_user($user_id){
+		$this->db->from('users');
+		$this->db->join('member', 'users.username = member.username');
+		$this->db->where('member.id_member', $user_id);
+		return $this->db->get()->row();
+	}
+
+	public function get_users() {
+		$this->db->where('level', 'user');
+		$this->db->join('member', 'users.username = member.username');
+		$query = $this->db->get('users');
+		return $query->result();
+	}
+
 	/**
 	 * get_admin_id_from function.
 	 *
