@@ -52,6 +52,15 @@ class Kendaraan_model extends CI_Model {
 		return floor($this->db->count_all_results()/5)+1;
 	}
 
+	public function getAll(){
+    $this->db->order_by('merk', 'asc');
+		$this->db->join('model', 'model.id_model = kendaraan.id_model');
+		$this->db->where('kendaraan.deleted_at', '');
+		$this->db->where('model.deleted_at', '');
+		$query = $this->db->get('kendaraan');
+		return $query->result();
+	}
+
   public function get($page = null){
 
     if($page!=null){
@@ -73,7 +82,7 @@ class Kendaraan_model extends CI_Model {
     $this->db->from('kendaraan');
 		return $this->db->get()->row();
   }
-	
+
 	public function getPhotos($id){
 		$this->db->where('deleted_at', '');
 		$this->db->where('id_kendaraan', $id);
