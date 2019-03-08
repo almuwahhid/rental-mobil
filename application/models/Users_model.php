@@ -145,7 +145,7 @@ class Users_model extends CI_Model {
 	 * @param mixed $password
 	 * @return string|bool could be a string on success, or bool false on failure
 	 */
-	private function hash_password($password) {
+	public function hash_password($password) {
 		return password_hash($password, PASSWORD_BCRYPT);
 	}
 

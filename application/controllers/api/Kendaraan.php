@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once(APPPATH.'controllers/api/Base_api.php');
 
-class Kendaraan extends CI_Controller {
+class Kendaraan extends Base_api {
   public function __construct() {
     parent::__construct();
     $this->load->helper('url');
@@ -49,4 +50,6 @@ class Kendaraan extends CI_Controller {
     }
     echo json_encode($data);
   }
+
+  private function
 }

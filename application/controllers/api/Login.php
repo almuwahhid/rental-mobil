@@ -19,15 +19,18 @@ class Login extends CI_Controller {
       if($user->aktif == 'N'){
         $data = array(
                     'status'           => "204",
+                    'message'           => "Akun belum dikonfirmasi oleh Admin",
                     'data'          => new stdClass());
       } else {
         $data = array(
                     'status'           => "200",
+                    'message'           => "Login berhasil",
                     'data'          => $user);
       }
     } else {
       $data = array(
                   'status'           => "404",
+                  'message'           => "Username atau password salah",
                   'data'          => new stdClass());
     }
 
