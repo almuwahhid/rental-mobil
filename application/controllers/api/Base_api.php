@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Bangkok');
 
 class Base_api extends CI_Controller {
   public function __construct() {
@@ -42,5 +43,19 @@ class Base_api extends CI_Controller {
             show_error($this->email->print_debugger());
             return ['status' => 'gagal', 'message'=> 'error'];
         }
+    }
+
+    public function getDayFromTimestamp($day1, $day2){
+      $date1 = new DateTime($day1);
+      $date2 = new DateTime($day2);
+
+      $diff = $date2->diff($date1)->format("%a");
+
+      return $diff;
+    }
+
+    public function getBiaya($harga, $day1, $day2){
+      $day = $this->getDayFromTimestamp($day1, $day2);
+      return round($day*$harga);
     }
 }

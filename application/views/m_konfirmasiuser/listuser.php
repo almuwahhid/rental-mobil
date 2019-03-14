@@ -64,7 +64,7 @@
                           <?= $user->nama_lengkap ?>
                         </td>
                         <td>
-                          <a href='<?= base_url()."user/detail/".$user->id_member; ?>'>
+                          <a class="btn btn-success" href='<?= base_url()."user/detail/".$user->id_member; ?>'>
                             <i class="fas fa-search"></i>
                           </a> &nbsp;&nbsp;
                           <?php

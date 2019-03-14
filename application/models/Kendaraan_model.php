@@ -83,6 +83,13 @@ class Kendaraan_model extends CI_Model {
 		return $this->db->get()->row();
   }
 
+	public function getBiaya($id){
+		$this->db->where('id_kendaraan', $id);
+		$this->db->select('tarif');
+    $this->db->from('kendaraan');
+		return $this->db->get()->row();
+  }
+
 	public function getPhotos($id){
 		$this->db->where('deleted_at', '');
 		$this->db->where('id_kendaraan', $id);

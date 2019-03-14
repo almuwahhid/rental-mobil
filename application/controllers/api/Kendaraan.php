@@ -50,6 +50,4 @@ class Kendaraan extends Base_api {
     }
     echo json_encode($data);
   }
-
-  private function
 }

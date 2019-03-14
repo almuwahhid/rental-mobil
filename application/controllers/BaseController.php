@@ -1,5 +1,7 @@
 <?php
   defined('BASEPATH') OR exit('No direct script access allowed');
+  date_default_timezone_set('Asia/Bangkok');
+
   class BaseController extends CI_Controller {
 
 	public function __construct() {

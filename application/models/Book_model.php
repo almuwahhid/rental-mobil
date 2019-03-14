@@ -31,4 +31,52 @@ class Book_model extends CI_Model {
 		$query = $this->db->get('booking');
 		return $query->result();
 	}
+
+	public function get($page = null){
+    if($page!=null){
+      $this->db->limit('5', $page);
+    } else {
+      if($this->totalBooking()>1){
+          $this->db->limit('5');
+      }
+    };
+    $this->db->order_by('submit_date', 'asc');
+		$this->db->join('member', 'booking.id_member = member.id_member');
+		$query = $this->db->get('booking');
+		return $query->result();
+  }
+
+	public function getDetail($id){
+		$this->db->where('id_booking', $id);
+		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('member', 'booking.id_member = member.id_member');
+		$this->db->select('*');
+    $this->db->from('booking');
+		return $this->db->get()->row();
+  }
+
+	public function updatebookconfirm($id){
+		$this->db->where('id_booking', $id);
+	}
+
+	public function listBookingUser($id_member){
+		$this->db->where('id_member', $id_member);
+		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('model', 'kendaraan.id_model = model.id_model');
+		$query = $this->db->get('booking');
+		return $query->result();
+	}
+
+	public function totalBooking() {
+		$this->db->from("booking");
+		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('member', 'booking.id_member = member.id_member');
+		$this->db->where('kendaraan.deleted_at', '');
+		return floor($this->db->count_all_results()/5)+1;
+	}
+
+	public function allBooking() {
+		$this->db->from("booking");
+		return $this->db->count_all_results();
+	}
 }

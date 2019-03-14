@@ -44,7 +44,7 @@
                                     <h5 class="mb-0 text-white nav-user-name"><?= $username ?></h5>
                                     <!-- <span class="status"></span><span class="ml-2">Available</span> -->
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                                <a class="dropdown-item" href="<?= base_url('admin/ubahpassword') ?>"><i class="fas fa-cog mr-2"></i>Ubah Password</a>
                                 <a class="dropdown-item" href="<?= base_url('admin/logout') ?>"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -120,6 +120,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link<?php if($page == "user")echo " active";?>" href="<?= base_url()?>user"><i class="fas fa-users"></i>User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link<?php if($page == "booking")echo " active";?>" href="<?= base_url()?>booking"><i class="fas fa-users"></i>Booking</a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link<?php if($page == "laporan")echo " active";?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-2"><i class="fas fa-book"></i>Laporan </a>

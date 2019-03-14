@@ -13,6 +13,11 @@ class Admin extends BaseController {
   public function index(){
     parent::getView('admin/dashboard', 'dashboard');
   }
+
+  public function ubahpassword(){
+    parent::getView('m_profile/profile', 'dashboard');
+  }
+
   public function logout(){
     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
       // remove session datas

@@ -54,7 +54,7 @@
                           <?= $tipe->nama_model ?>
                         </td>
                         <td>
-                          <a href='<?= base_url()."/modelkendaraan/detail/".$tipe->id_model; ?>'>
+                          <a class="btn btn-success" href='<?= base_url()."/modelkendaraan/detail/".$tipe->id_model; ?>'>
                             <i class="fas fa-edit"></i>
                           </a> &nbsp;&nbsp;
                           <a href="#" onclick="redirect('<?= base_url()."/modelkendaraan/delete?id=".$tipe->id_model; ?>')">
