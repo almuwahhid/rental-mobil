@@ -36,6 +36,13 @@ class Kendaraan extends Base_api {
         } else {
           $datak['available'] = true;
         }
+        $data_album = array();
+        $album = $this->kendaraan_model->getAlbum($knd->id_kendaraan);
+        foreach ($album as $k => $albm) {
+          $album_d = $albm->photo;
+          array_push($data_album, $album_d);
+        }
+        $datak['photos'] = $data_album;
         array_push($kendaraans, $datak);
       }
       $data = array(

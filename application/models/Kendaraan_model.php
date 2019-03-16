@@ -52,6 +52,13 @@ class Kendaraan_model extends CI_Model {
 		return floor($this->db->count_all_results()/5)+1;
 	}
 
+	public function getAlbum($id_kendaraan){
+		$this->db->where('id_kendaraan', $id_kendaraan);
+		$this->db->where('deleted_at', '');
+		$query = $this->db->get('album_kendaraan');
+		return $query->result();
+	}
+
 	public function getAll(){
     $this->db->order_by('merk', 'asc');
 		$this->db->join('model', 'model.id_model = kendaraan.id_model');
