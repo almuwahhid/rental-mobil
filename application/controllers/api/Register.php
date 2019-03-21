@@ -19,6 +19,8 @@ class Register extends Base_api {
     $telp = $this->input->post('telp');
     $pekerjaan = $this->input->post('pekerjaan');
     $instansi = $this->input->post('instansi');
+    $tgl_lahir = $this->input->post('tgl_lahir');
+    $jenis_kelamin = $this->input->post('jenis_kelamin');
 
     $data2 = array(
       'username' => $username,
@@ -36,6 +38,8 @@ class Register extends Base_api {
       'telp' => $telp,
       'pekerjaan' => $pekerjaan,
       'instansi' => $instansi
+      'tgl_lahir' => $tgl_lahir
+      'jenis_kelamin' => $jenis_kelamin
     );
     $insert = $this->main_model->create($data, 'member');
 

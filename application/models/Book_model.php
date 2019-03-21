@@ -55,11 +55,22 @@ class Book_model extends CI_Model {
 		return $this->db->get()->row();
   }
 
+	public function getFirst(){
+		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('member', 'booking.id_member = member.id_member');
+		$this->db->select('*, booking.deleted_at as delete');
+		$this->db->order_by('booking.id_booking', 'DESC');
+		$this->db->limit('1');
+		$this->db->from('booking');
+		return $this->db->get()->row();
+	}
+
 	public function updatebookconfirm($id){
 		$this->db->where('id_booking', $id);
 	}
 
 	public function listBookingUser($id_member){
+		$this->db->select('*, booking.deleted_at as delete');
 		$this->db->where('id_member', $id_member);
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
 		$this->db->join('model', 'kendaraan.id_model = model.id_model');

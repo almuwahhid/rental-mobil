@@ -65,6 +65,21 @@ class Booking extends Base_api {
       'biaya' => parent::getBiaya($this->kendaraan_model->getBiaya($id_kendaraan)->tarif, $begin_date, $due_date)
     );
     $insert = $this->main_model->create($data, 'booking');
+    if($insert){
+
+      $datak = $this->book_model->getFirst();
+
+      $data = array(
+                  'status'           => "200",
+                  'message'           => "Booking berhasil",
+                  'data'          => $datak);
+    } else {
+      $data = array(
+                  'status'           => "204",
+                  'message'           => "Gagal booking",
+                  'data'          => new stdClass());
+    }
+    echo json_encode($data);
   }
 
   public function mybooking(){
