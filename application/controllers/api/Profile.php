@@ -50,4 +50,37 @@ class Profile extends Base_api {
 
     echo json_encode($data);
   }
+
+  public function editpassword(){
+    $username = $this->input->post('username');
+    $password_lama = $this->input->post('password_lama');
+    $password_baru = $this->input->post('password_baru');
+
+    if ($this->users_model->check_login_user($username, $password_lama)) {
+      $p_baru = $this->users_model->hash_password($password_baru);
+
+      $data = array(
+        'password' => $p_baru
+      );
+      $update = $this->main_model->update($data, 'users', ['username' => $username]);
+      if($update){
+        $data = array(
+                    'status'           => "200",
+                    'message'           => "Berhasil mengubah password",
+                    'data'          => new stdClass());
+      } else {
+        $data = array(
+                    'status'           => "404",
+                    'message'           => "Ada yang bermasalah dengan server",
+                    'data'          => new stdClass());
+      }
+    } else {
+      $data = array(
+                  'status'           => "204",
+                  'message'           => "Password Anda salah",
+                  'data'          => new stdClass());
+    }
+
+    echo json_encode($data);
+  }
 }

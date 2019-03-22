@@ -60,6 +60,17 @@ class Users_model extends CI_Model {
 
 	}
 
+	public function check_login_user($uname, $password) {
+
+		$this->db->select('password');
+		$this->db->from('users');
+		$this->db->where('username', $uname);
+		$this->db->where('level', 'user');
+		$hash = $this->db->get()->row('password');
+		return $this->verify_password_hash($password, $hash);
+
+	}
+
 
 	/**
 	 * get_user_id_from function.
