@@ -40,7 +40,7 @@ class Book_model extends CI_Model {
           $this->db->limit('5');
       }
     };
-    $this->db->order_by('submit_date', 'asc');
+    $this->db->order_by('submit_date', 'desc');
 		$this->db->join('member', 'booking.id_member = member.id_member');
 		$query = $this->db->get('booking');
 		return $query->result();
@@ -67,6 +67,17 @@ class Book_model extends CI_Model {
 
 	public function updatebookconfirm($id){
 		$this->db->where('id_booking', $id);
+	}
+
+	public function getfromsearch($id_member, $kode_booking){
+		$this->db->select('*, booking.deleted_at as delete');
+		$this->db->where('id_member', $id_member);
+		$this->db->where('kode_booking', $kode_booking);
+		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('model', 'kendaraan.id_model = model.id_model');
+		$this->db->limit('1');
+		$this->db->from('booking');
+		return $this->db->get()->row();
 	}
 
 	public function listBookingUser($id_member){

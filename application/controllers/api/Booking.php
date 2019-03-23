@@ -99,4 +99,25 @@ class Booking extends Base_api {
 
     echo json_encode($data);
   }
+
+  public function searchbooking(){
+    $kode_booking = $this->input->post('kode_booking');
+    $id_member = $this->input->post('id_member');
+
+    $datak = $this->book_model->getfromsearch($id_member, $kode_booking);
+    if($datak){
+      $data = array(
+                  'status'           => "200",
+                  'message'           => "Booking tersedia",
+                  'data'          => $datak);
+    } else {
+      $data = array(
+                  'status'           => "204",
+                  'message'           => "Kode Booking tidak ditemukan",
+                  'data'          => new stdClass());
+    }
+
+    echo json_encode($data);
+
+  }
 }
