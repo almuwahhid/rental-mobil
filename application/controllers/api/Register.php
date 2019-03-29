@@ -37,8 +37,8 @@ class Register extends Base_api {
       'alamat' => $alamat,
       'telp' => $telp,
       'pekerjaan' => $pekerjaan,
-      'instansi' => $instansi
-      'tgl_lahir' => $tgl_lahir
+      'instansi' => $instansi,
+      'tgl_lahir' => $tgl_lahir,
       'jenis_kelamin' => $jenis_kelamin
     );
     $insert = $this->main_model->create($data, 'member');
