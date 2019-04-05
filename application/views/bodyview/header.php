@@ -130,10 +130,10 @@
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?= base_url()?>">Daftar Wisata</a>
+                                            <a class="nav-link" href="<?= base_url()?>laporan">Laporan Tahunan</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?= base_url()?>">Tambah Wisata</a>
+                                            <a class="nav-link" href="<?= base_url()?>laporan/bulanan">Laporan Bulanan</a>
                                         </li>
                                     </ul>
                                 </div>
