@@ -25,7 +25,7 @@ class Kendaraan_model extends CI_Model {
 	public function create_kendaraan($params) {
 
 		$data = array(
-			'id_model' => $params['model'],
+			'id_model' => $params['id_model'],
 			'plat_nomor' => $params['plat_nomor'],
 			'merk' => $params['merk'],
 			'tipe' => $params['tipe'],
