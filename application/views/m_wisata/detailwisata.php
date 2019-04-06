@@ -52,6 +52,10 @@
                   <textarea required name="keterangan" class="form-control" id="editor1" rows="3"><?= $data->keterangan ?></textarea>
                 </div>
                 <div class="form-group">
+                  <label for="inputText3" class="col-form-label">Nomor Telepon</label>
+                  <input required name="telp" type="text" class="form-control" value="<?= $data->telp ?>">
+                </div>
+                <div class="form-group">
                   <label for="inputText3" class="col-form-label">Biaya(Rupiah)</label>
                   <input required name="biaya" type="text" class="uang form-control" value="<?= $data->biaya ?>">
                 </div>

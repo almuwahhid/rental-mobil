@@ -40,10 +40,12 @@ class Wisata extends BaseController {
 
     $nama_wisata = $this->input->post('nama_wisata');
     $keterangan = $this->input->post('keterangan');
+    $telp = $this->input->post('telp');
     $biaya = $this->input->post('biaya');
     $data = array(
       'nama_wisata' => $nama_wisata,
       'keterangan' => $keterangan,
+      'telp' => $telp,
       'biaya' => str_replace('.', '', $biaya),
     );
 
