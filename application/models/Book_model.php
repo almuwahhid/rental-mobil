@@ -25,6 +25,7 @@ class Book_model extends CI_Model {
 	public function status_book($id_kendaraan) {
     $this->db->where('id_kendaraan', $id_kendaraan);
     $this->db->where('confirmed', 'Y');
+    $this->db->where('deleted_at', '');
     $this->db->where("begin_date <= ", date('Y-m-d H:i:s'));
     $this->db->where("due_date >= ", date('Y-m-d H:i:s'));
 
@@ -54,6 +55,14 @@ class Book_model extends CI_Model {
     $this->db->from('booking');
 		return $this->db->get()->row();
   }
+
+	public function updateBookAfter60(){
+		$this->db->where('submit_date < DATE_SUB(NOW(), INTERVAL 60 MINUTE)', NULL, FALSE);
+		$this->db->where('confirmed', 'N');
+		$this->db->where('deleted_at', '');
+		$this->db->where('confirmation_photo', '');
+		return $this->db->update('booking', ['deleted_at' => date('Y-m-d H:i:s'), 'confirmed' => 'Y']);
+	}
 
 	public function getFirst(){
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');

@@ -7,6 +7,9 @@ class Base_api extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
 
+    $this->load->model('book_model');
+    $this->book_model->updateBookAfter60();
+
     $this->smtp_user = "djunkir@gmail.com";
     $this->smtp_pass = "djunkir@321";
   }

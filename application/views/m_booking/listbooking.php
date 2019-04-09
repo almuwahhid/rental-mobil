@@ -78,7 +78,11 @@
                           <?php
                           $s = 0;
                             if($booking->confirmed == "Y"){
-                              echo "Diterima";
+                              if($booking->deleted_at != ""){
+                                echo "Dibatalkan";
+                              } else {
+                                echo "Diterima";
+                              }
                             } else {
                               if($booking->deleted_at != ""){
                                 echo "Ditolak";

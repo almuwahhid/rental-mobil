@@ -27,6 +27,7 @@ class Laporan_model extends CI_Model {
     $this->db->select('DISTINCT EXTRACT(MONTH FROM begin_date) as bulan');
 		$this->db->where('EXTRACT(YEAR FROM begin_date) = ', $param);
     $this->db->where('confirmed', 'Y');
+    $this->db->where('deleted_at', '');
 
     $query = $this->db->get('booking');
 		return $query->result();
@@ -35,6 +36,7 @@ class Laporan_model extends CI_Model {
   public function yearList() {
     $this->db->select('DISTINCT EXTRACT(YEAR FROM begin_date) as tahun');
     $this->db->where('confirmed', 'Y');
+		$this->db->where('deleted_at', '');
 
     $query = $this->db->get('booking');
     return $query->result();
@@ -44,6 +46,7 @@ class Laporan_model extends CI_Model {
 		$this->db->select('DISTINCT EXTRACT(MONTH FROM begin_date) as bulan');
     $this->db->where('EXTRACT(YEAR FROM begin_date) = ', $param);
     $this->db->where('confirmed', 'Y');
+		$this->db->where('deleted_at', '');
 
     $query = $this->db->get('booking');
 		return $query->result();
@@ -56,6 +59,8 @@ class Laporan_model extends CI_Model {
 		} else {
 			$this->db->where('EXTRACT(YEAR FROM begin_date) = ', $isYear);
 		}
+		$this->db->where('confirmed', 'Y');
+		$this->db->where('deleted_at', '');
 		$this->db->select('*, booking.deleted_at as delete');
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
 		$this->db->join('member', 'booking.id_member = member.id_member');

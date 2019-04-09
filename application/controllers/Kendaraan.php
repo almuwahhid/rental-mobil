@@ -97,7 +97,7 @@ class Kendaraan extends BaseController {
 
 	public function simpanphoto(){
 		$id_kendaraan = $this->input->post('id_kendaraan');
-		$photo_name = $id_kendaraan."_".$_FILES['photo']['name'];
+		$photo_name = $id_kendaraan."_".str_replace(" ","_", $_FILES['photo']['name']);
 
 		$data = array(
 			'id_kendaraan' => $id_kendaraan,
@@ -105,11 +105,12 @@ class Kendaraan extends BaseController {
 		);
 
 		$config['upload_path']          = './datas';
-		$config['allowed_types']        = 'png|jpg';
+		$config['allowed_types']        = 'jpg|gif|png|jpeg|JPG|PNG';
 		$config['max_size']             = 150000;
 		$config['file_name']            = $photo_name;
 
 		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
 		if ( ! $this->upload->do_upload('photo') )
 		{
 			$error = array('error' => $this->upload->display_errors());

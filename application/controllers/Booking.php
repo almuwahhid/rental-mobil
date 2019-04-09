@@ -25,6 +25,7 @@ class Booking extends BaseController {
 
 	public function detail($id){
 		$booking = $this->book_model->getDetail($id);
+		// echo $this->book_model->updateBookAfter60();;
 		parent::getView('m_booking/detailbooking', 'booking', $booking);
 	}
 
@@ -48,5 +49,5 @@ class Booking extends BaseController {
 		}
 	}
 
-	
+
 }
