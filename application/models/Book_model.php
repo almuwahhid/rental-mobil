@@ -66,6 +66,7 @@ class Book_model extends CI_Model {
 
 	public function getFirst(){
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('model', 'model.id_model = kendaraan.id_model');
 		$this->db->join('member', 'booking.id_member = member.id_member');
 		$this->db->select('*, booking.deleted_at as delete');
 		$this->db->order_by('booking.id_booking', 'DESC');

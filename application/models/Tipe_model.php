@@ -24,7 +24,7 @@ class Tipe_model extends CI_Model {
 	 */
 	public function create($params) {
 		$data = array(
-			'nama_model' => $params['model']
+			'nama_model' => $params['nama_model']
 		);
 		return $this->db->insert('model', $data);
 	}
