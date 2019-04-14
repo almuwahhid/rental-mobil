@@ -90,6 +90,17 @@ class Book_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 
+	public function getfromsearchAll($kode_booking){
+		$this->db->select('*, booking.deleted_at as delete');
+		$this->db->where('kode_booking', $kode_booking);
+		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('model', 'kendaraan.id_model = model.id_model');
+		$this->db->join('member', 'booking.id_member = member.id_member');
+		$this->db->limit('1');
+		$this->db->from('booking');
+		return $this->db->get()->row();
+	}
+
 	public function listBookingUser($id_member){
 		$this->db->select('*, booking.deleted_at as delete');
 		$this->db->where('id_member', $id_member);

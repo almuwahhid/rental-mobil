@@ -120,4 +120,24 @@ class Booking extends Base_api {
     echo json_encode($data);
 
   }
+
+  public function searchbookingAll(){
+    $kode_booking = $this->input->get('kode_booking');
+
+    $datak = $this->book_model->getfromsearchAll($kode_booking);
+    if($datak){
+      $data = array(
+                  'status'           => "200",
+                  'message'           => "Booking tersedia",
+                  'data'          => $datak);
+    } else {
+      $data = array(
+                  'status'           => "204",
+                  'message'           => "Kode Booking tidak ditemukan",
+                  'data'          => new stdClass());
+    }
+
+    echo json_encode($data);
+
+  }
 }

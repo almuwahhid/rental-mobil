@@ -20,7 +20,6 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
     <!-- jquery 3.3.1 -->
-    <script src="<?php echo base_url('assets/vendor/jquery/jquery-3.3.1.min.js')?>"></script>
     <!-- <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script> -->
     <!-- bootstap bundle js -->
     <script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.bundle.js')?>"></script>
