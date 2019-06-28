@@ -34,7 +34,7 @@ class Booking extends BaseController {
 		$status = $this->input->get('status');
 
 		if($status == '1'){
-			$params = array('confirmed' => 'Y');
+			$params = array('konfirmasi' => 'Y');
 		} else {
 			$params = array('deleted_at' => date('Y-m-d H:i:s'));
 		}

@@ -42,17 +42,27 @@
             <div class="card-body">
               <form action="<?=base_url('kendaraan/simpan')?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="tambah">
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="inputText3" class="col-form-label">Merk Kendaraan</label>
                   <input required name="merk" id="inputText3" type="text" class="form-control">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="inputText3" class="col-form-label">Model</label>
                   <select class="form-control" id="sel1" name="model">
                     <?php
-                    foreach ($data as $k => $tipe) {
+                    foreach ($data['model'] as $k => $tipe) {
                     ?>
                     <option value="<?= $tipe->id_model?>"><?= $tipe->nama_model?></option>
+                  <?php } ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inputText3" class="col-form-label">Merk dan Tarif Kendaraan per hari</label>
+                  <select class="form-control" id="sel1" name="id_tarif">
+                    <?php
+                    foreach ($data['tarif'] as $k => $tipe) {
+                    ?>
+                    <option value="<?= $tipe->id_tarif?>"><?= $tipe->merk_kendaraan." / ".$tipe->tipe_kendaraan."( ".$tipe->tarif_kendaraan." )"?></option>
                   <?php } ?>
                   </select>
                 </div>
@@ -60,10 +70,10 @@
                   <label for="inputText3" class="col-form-label">Plat Nomor</label>
                   <input required name="plat_nomor" id="inputText3" type="text" class="form-control">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="inputText3" class="col-form-label">Tipe</label>
                   <input required name="tipe" id="inputText3" type="text" class="form-control">
-                </div>
+                </div> -->
 
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1">Tahun Pembuatan</label>
@@ -84,6 +94,16 @@
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1">Tarif Kendaraan per hari</label>
                   <input required name="tarif" id="tarif" type="text" class="uang form-control">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Foto Kendaraan</label>
+                  <div class="custom-file mb-3" style="margin-top:20px">
+                    <input name="photo" type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile" style="text-align:center">Klik untuk memilih gambar kendaraan</label>
+                  </div>
+                  <!-- <div class="col-md-12">
+                    <img src="<?= base_url()."datas/".$data['kendaraan']->foto_kendaraan ?>" alt="user" class="rounded" width="100">
+                  </div> -->
                 </div>
                 <div class="custom-file mb-3">
                   <input type="submit" href="#" class="centerHorizontal btn btn-primary" value="Tambahkan"></a>

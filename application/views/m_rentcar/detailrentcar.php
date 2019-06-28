@@ -44,10 +44,10 @@
               <form action="<?=base_url('kendaraan/simpan')?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="id_kendaraan" value="<?= $data['kendaraan']->id_kendaraan ?>">
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="inputText3" class="col-form-label">Merk Kendaraan</label>
                   <input required name="merk" id="inputText3" type="text" class="form-control" value="<?= $data['kendaraan']->merk ?>">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="inputText3" class="col-form-label">Model</label>
                   <select class="form-control" id="sel1" name="model">
@@ -59,14 +59,19 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label for="inputText3" class="col-form-label">Merk dan Tarif Kendaraan per hari</label>
+                  <select class="form-control" id="sel1" name="id_tarif">
+                    <?php
+                    foreach ($data['tarif'] as $k => $tipe) {
+                    ?>
+                    <option <?php if($tipe->id_tarif == $data['kendaraan']->id_tarif) echo 'selected="selected"'; ?> value="<?= $tipe->id_tarif?>"><?= $tipe->merk_kendaraan." / ".$tipe->tipe_kendaraan."( ".$tipe->tarif_kendaraan." )"?></option>
+                  <?php } ?>
+                  </select>
+                </div>
+                <div class="form-group">
                   <label for="inputText3" class="col-form-label">Plat Nomor</label>
                   <input required name="plat_nomor" id="inputText3" type="text" class="form-control" value="<?= $data['kendaraan']->plat_nomor ?>">
                 </div>
-                <div class="form-group">
-                  <label for="inputText3" class="col-form-label">Tipe</label>
-                  <input required name="tipe" id="inputText3" type="text" class="form-control" value="<?= $data['kendaraan']->tipe ?>">
-                </div>
-
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1">Tahun Pembuatan</label>
                   <input required id="datepicker" name="tahun_pembuatan" id="inputText3" type="text" class="form-control" value="<?= $data['kendaraan']->tahun_pembuatan ?>">
@@ -84,9 +89,16 @@
                   <input required name="nomor_mesin" id="inputText3" type="text" class="form-control" value="<?= $data['kendaraan']->nomor_mesin ?>">
                 </div>
                 <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Foto Kendaraan</label>
+                  <!-- <input name="photo" type="file" class="custom-file-input" id="customFile"> -->
+                  <div class="col-md-12">
+                    <img src="<?= base_url()."datas/".$data['kendaraan']->foto_kendaraan ?>" alt="user" class="rounded" width="200">
+                  </div>
+                </div>
+                <!-- <div class="form-group">
                   <label for="exampleFormControlTextarea1">Tarif Kendaraan per hari</label>
                   <input required name="tarif" type="text" class="uang form-control" value="<?= $data['kendaraan']->tarif ?>">
-                </div>
+                </div> -->
                 <div class="custom-file mb-3">
                   <input type="submit" href="#" class="centerHorizontal btn btn-primary" value="UPDATE"></a>
                 </div>
@@ -96,7 +108,7 @@
         </div>
 
           <!-- ini gambarnya -->
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
             <h5 class="card-header">Foto - foto Kendaraan</h5>
             <div class="card-body">
@@ -113,7 +125,7 @@
                     </div>
                   <?php } ?>
               </div>
-              <!-- <?php echo form_open_multipart('kendaraan/simpanphoto');?> -->
+
               <form action="<?= base_url('kendaraan/simpanphoto')?>" method="post" enctype="multipart/form-data">
                 <input name="id_kendaraan" type="hidden" class="form-control" value="<?php echo $data['id_kendaraan'];  ?>">
                 <div class="custom-file mb-3" style="margin-top:20px">
@@ -126,7 +138,7 @@
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

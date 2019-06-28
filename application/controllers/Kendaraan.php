@@ -14,6 +14,7 @@ class Kendaraan extends BaseController {
 		    $this->load->model('kendaraan_model');
 		    $this->load->model('main_model');
 		    $this->load->model('tipe_model');
+		    $this->load->model('tarif_model');
 
         $this->load->helper('form');
 				$this->load->library('form_validation');
@@ -30,11 +31,13 @@ class Kendaraan extends BaseController {
 
 	public function detail($id){
 		$kendaraan = $this->kendaraan_model->getDetail($id);
-		$album = $this->kendaraan_model->getPhotos($id);
+		// $album = $this->kendaraan_model->getPhotos($id);
 		$model = $this->tipe_model->get();
+		$tarif = $this->tarif_model->get();
 		$data['id_kendaraan'] = $id;
-		$data['album'] = $album;
+		// $data['album'] = $album;
 		$data['model'] = $model;
+		$data['tarif'] = $tarif;
 		$data['kendaraan'] = $kendaraan;
 
 		if(!$kendaraan) {
@@ -43,14 +46,14 @@ class Kendaraan extends BaseController {
 		parent::getView('m_rentcar/detailrentcar', 'kendaraan', $data);
 	}
 	public function tambah(){
-		$data = $this->tipe_model->get();
+		$data['model'] = $this->tipe_model->get();
+		$data['tarif'] = $this->tarif_model->get();
 		parent::getView('m_rentcar/formlistrentcar', 'kendaraan', $data);
 	}
 
 	public function simpan(){
-		$merk = $this->input->post('merk');
 		$model = $this->input->post('model');
-		$tipe = $this->input->post('tipe');
+		$id_tarif = $this->input->post('id_tarif');
 		$plat_nomor = $this->input->post('plat_nomor');
 		$tahun_pembuatan = $this->input->post('tahun_pembuatan');
 		$isi_silinder = $this->input->post('isi_silinder');
@@ -58,31 +61,52 @@ class Kendaraan extends BaseController {
 		$nomor_mesin = $this->input->post('nomor_mesin');
 		$tarif = $this->input->post('tarif');
 
-        $data = array(
-            'merk' => $merk,
-            'id_model' => $model,
-						'plat_nomor' => $plat_nomor,
-						'tipe' => $tipe,
-						'tahun_pembuatan' => $tahun_pembuatan,
-						'isi_silinder' => $isi_silinder,
-						'nomor_mesin' => $nomor_mesin,
-						'nomor_rangka' => $nomor_rangka,
-						'tarif' => $tarif
-        );
-
 				if($this->input->post('action') === 'tambah') {
+					$photo_name = $this->kendaraan_model->totalKendaraan()."_".str_replace(" ","_", $_FILES['photo']['name']);
+					$data = array(
+	            'merk' => $merk,
+	            'id_model' => $model,
+	            'id_tarif' => $id_tarif,
+							'plat_nomor' => $plat_nomor,
+							'tahun_pembuatan' => $tahun_pembuatan,
+							'isi_silinder' => $isi_silinder,
+							'nomor_mesin' => $nomor_mesin,
+							'nomor_rangka' => $nomor_rangka,
+							'foto_kendaraan' => $photo_name
+	        );
 					$insert = $this->kendaraan_model->create_kendaraan($data);
 					if ($insert) {
-						$this->session->set_flashdata('alert', array('message' => 'Berhasil menambah kendaraan','class' => 'success'));
-						redirect('kendaraan');
+						$config['upload_path']          = './datas';
+						$config['allowed_types']        = 'jpg|gif|png|jpeg|JPG|PNG';
+						$config['max_size']             = 150000;
+						$config['file_name']            = $photo_name;
+						$this->load->library('upload', $config);
+						$this->upload->initialize($config);
+						if ( ! $this->upload->do_upload('photo') )
+						{
+							$error = array('error' => $this->upload->display_errors());
+							$this->session->set_flashdata('alert', array('message' => $this->upload->display_errors(),'class' => 'danger'));
+							redirect('kendaraan/detail/'.$id_kendaraan);
+						} else {
+							$this->session->set_flashdata('alert', array('message' => 'Berhasil menambah kendaraan','class' => 'success'));
+							redirect('kendaraan');
+						}
 					}
 					else {
 						$this->session->set_flashdata('alert', array('message' => 'Gagal menambah kendaraan','class' => 'danger'));
 						redirect('kendaraan');
 					}
 				} else if ( $this->input->post('action') === 'edit' ) {
+					$data = array(
+	            'id_model' => $model,
+	            'id_tarif' => $id_tarif,
+							'plat_nomor' => $plat_nomor,
+							'tahun_pembuatan' => $tahun_pembuatan,
+							'isi_silinder' => $isi_silinder,
+							'nomor_mesin' => $nomor_mesin,
+							'nomor_rangka' => $nomor_rangka
+	        );
 					$id_kendaraan = $this->input->post('id_kendaraan');
-
 					$insert = $this->main_model->update($data, 'kendaraan', ['id_kendaraan' => $id_kendaraan]);
 					if ($insert) {
 						$this->session->set_flashdata('alert', array('message' => 'Berhasil mengedit kendaraan','class' => 'success'));

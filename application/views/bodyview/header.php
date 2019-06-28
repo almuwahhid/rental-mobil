@@ -103,15 +103,15 @@
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link<?php if($page == "wisata")echo " active";?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-2"><i class="fas fa-bus"></i>Wisata </a>
+                                <a class="nav-link<?php if($page == "tarif")echo " active";?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-2"><i class="fas fa-bus"></i>Tarif </a>
                                 <!-- <span class="badge badge-success">6</span> -->
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?= base_url()?>wisata">Daftar Wisata</a>
+                                            <a class="nav-link" href="<?= base_url()?>tarif">Daftar Tarif</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?= base_url()?>wisata/tambah">Tambah Wisata</a>
+                                            <a class="nav-link" href="<?= base_url()?>tarif/tambah">Tambah Tarif</a>
                                         </li>
                                     </ul>
                                 </div>

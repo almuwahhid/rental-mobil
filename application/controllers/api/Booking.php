@@ -25,7 +25,7 @@ class Booking extends Base_api {
     $success = file_put_contents($file, $data);
 
     if($success){
-      $params = array('confirmation_photo' => $id_booking.'.png');
+      $params = array('konfirmasi_foto' => $id_booking.'.png');
       $insert = $this->main_model->update($params, 'booking', ['id_booking' => $id_booking]);
 
       if($insert){
@@ -48,25 +48,24 @@ class Booking extends Base_api {
   public function index(){
     $id_kendaraan = $this->input->post('id_kendaraan');
     $id_member = $this->input->post('id_member');
-    $begin_date = $this->input->post('begin_date');
-    $due_date = $this->input->post('due_date');
+    $tanggal_mulai = $this->input->post('tanggal_mulai');
+    $tanggal_berakhir = $this->input->post('tanggal_berakhir');
     $jaminan = $this->input->post('jaminan');
 
-    // echo parent::getDayFromTimestamp($begin_date, $due_date);
+    // echo parent::getDayFromTimestamp($tanggal_mulai, $tanggal_berakhir);
     $data = array(
-      'kode_booking' => 'B'.($this->book_model->allBooking()+1).$id_member.date("d", strtotime($begin_date)),
+      'kode_booking' => 'B'.($this->book_model->allBooking()+1).$id_member.date("d", strtotime($tanggal_mulai)),
       'id_kendaraan' => $id_kendaraan,
       'id_member' => $id_member,
-      'begin_date' => $begin_date,
-      'due_date' => $due_date,
+      'tanggal_mulai' => $tanggal_mulai,
+      'tanggal_berakhir' => $tanggal_berakhir,
       'jaminan' => $jaminan,
-      'confirmed' => 'N',
-      'submit_date' => date('Y-m-d H:i:s'),
-      'biaya' => parent::getBiaya($this->kendaraan_model->getBiaya($id_kendaraan)->tarif, $begin_date, $due_date)
+      'konfirmasi' => 'N',
+      'kirimkan_tanggal' => date('Y-m-d H:i:s'),
+      'biaya' => parent::getBiaya($this->kendaraan_model->getBiaya($id_kendaraan)->tarif_kendaraan, $tanggal_mulai, $tanggal_berakhir)
     );
     $insert = $this->main_model->create($data, 'booking');
     if($insert){
-
       $datak = $this->book_model->getFirst();
 
       $data = array(
@@ -138,6 +137,24 @@ class Booking extends Base_api {
     }
 
     echo json_encode($data);
+  }
 
+  public function setPengembalian(){
+    $id_booking = $this->input->post('id_booking');
+    $pengembalian = date('Y-m-d H:i:s');
+    $result = array();
+    $params = array('waktu_pengembalian' => $pengembalian);
+    $insert = $this->main_model->update($params, 'booking', ['id_booking' => $id_booking]);
+
+    if($insert){
+      $result["status"] = 200;
+      $result["message"] = "Berhasil mengkonfirmasi pengembalian";
+      $result["data"] = $pengembalian;
+    } else {
+      $result["status"] = 500;
+      $result["message"] = "Gagal mengkonfirmasi pengembalian";
+      $result["data"] = "";
+    }
+    echo json_encode($result);
   }
 }

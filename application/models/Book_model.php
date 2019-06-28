@@ -24,10 +24,20 @@ class Book_model extends CI_Model {
 	 */
 	public function status_book($id_kendaraan) {
     $this->db->where('id_kendaraan', $id_kendaraan);
-    $this->db->where('confirmed', 'Y');
+    $this->db->where('konfirmasi', 'Y');
     $this->db->where('deleted_at', '');
-    $this->db->where("begin_date <= ", date('Y-m-d H:i:s'));
-    $this->db->where("due_date >= ", date('Y-m-d H:i:s'));
+    $this->db->where("tanggal_mulai <= ", date('Y-m-d H:i:s'));
+    $this->db->where("tanggal_berakhir >= ", date('Y-m-d H:i:s'));
+
+		$query = $this->db->get('booking');
+		return $query->result();
+	}
+
+	public function getActiveBook($id_kendaraan){
+		$this->db->where('id_kendaraan', $id_kendaraan);
+    $this->db->where('konfirmasi', 'Y');
+    $this->db->where('deleted_at', '');
+    $this->db->where("tanggal_berakhir >= ", date('Y-m-d'));
 
 		$query = $this->db->get('booking');
 		return $query->result();
@@ -41,7 +51,7 @@ class Book_model extends CI_Model {
           $this->db->limit('5');
       }
     };
-    $this->db->order_by('submit_date', 'desc');
+    $this->db->order_by('kirimkan_tanggal', 'desc');
 		$this->db->join('member', 'booking.id_member = member.id_member');
 		$query = $this->db->get('booking');
 		return $query->result();
@@ -50,6 +60,7 @@ class Book_model extends CI_Model {
 	public function getDetail($id){
 		$this->db->where('id_booking', $id);
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('tarif', 'kendaraan.id_tarif = tarif.id_tarif');
 		$this->db->join('member', 'booking.id_member = member.id_member');
 		$this->db->select('*');
     $this->db->from('booking');
@@ -57,11 +68,11 @@ class Book_model extends CI_Model {
   }
 
 	public function updateBookAfter60(){
-		$this->db->where('submit_date < DATE_SUB(NOW(), INTERVAL 60 MINUTE)', NULL, FALSE);
-		$this->db->where('confirmed', 'N');
+		$this->db->where('kirimkan_tanggal < DATE_SUB(NOW(), INTERVAL 60 MINUTE)', NULL, FALSE);
+		$this->db->where('konfirmasi', 'N');
 		$this->db->where('deleted_at', '');
-		$this->db->where('confirmation_photo', '');
-		return $this->db->update('booking', ['deleted_at' => date('Y-m-d H:i:s'), 'confirmed' => 'Y']);
+		$this->db->where('konfirmasi_foto', '');
+		return $this->db->update('booking', ['deleted_at' => date('Y-m-d H:i:s'), 'konfirmasi' => 'Y']);
 	}
 
 	public function getFirst(){
@@ -84,6 +95,7 @@ class Book_model extends CI_Model {
 		$this->db->where('id_member', $id_member);
 		$this->db->where('kode_booking', $kode_booking);
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('tarif', 'kendaraan.id_tarif = tarif.id_tarif');
 		$this->db->join('model', 'kendaraan.id_model = model.id_model');
 		$this->db->limit('1');
 		$this->db->from('booking');
@@ -94,6 +106,7 @@ class Book_model extends CI_Model {
 		$this->db->select('*, booking.deleted_at as delete');
 		$this->db->where('kode_booking', $kode_booking);
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('tarif', 'kendaraan.id_tarif = tarif.id_tarif');
 		$this->db->join('model', 'kendaraan.id_model = model.id_model');
 		$this->db->join('member', 'booking.id_member = member.id_member');
 		$this->db->limit('1');
@@ -105,6 +118,7 @@ class Book_model extends CI_Model {
 		$this->db->select('*, booking.deleted_at as delete');
 		$this->db->where('id_member', $id_member);
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('tarif', 'kendaraan.id_tarif = tarif.id_tarif');
 		$this->db->join('model', 'kendaraan.id_model = model.id_model');
 		$query = $this->db->get('booking');
 		return $query->result();
@@ -113,6 +127,7 @@ class Book_model extends CI_Model {
 	public function totalBooking() {
 		$this->db->from("booking");
 		$this->db->join('kendaraan', 'booking.id_kendaraan = kendaraan.id_kendaraan');
+		$this->db->join('tarif', 'kendaraan.id_tarif = tarif.id_tarif');
 		$this->db->join('member', 'booking.id_member = member.id_member');
 		$this->db->where('kendaraan.deleted_at', '');
 		return floor($this->db->count_all_results()/5)+1;

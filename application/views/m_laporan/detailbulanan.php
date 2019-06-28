@@ -78,17 +78,17 @@
               <?= $booking->nama_lengkap ?>
             </td>
             <td style="text-align:center">
-              <?= $booking->merk ?>
+              <?= $booking->merk_kendaraan ?>
             </td>
             <td>
               <?php
-                $timestamp = strtotime($booking->begin_date);
+                $timestamp = strtotime($booking->tanggal_mulai);
                 echo date('m/d/Y H:i:s', $timestamp)
               ?>
             </td>
             <td>
               <?php
-              $timestamp = strtotime($booking->due_date);
+              $timestamp = strtotime($booking->tanggal_berakhir);
               echo date('m/d/Y H:i:s', $timestamp)
                ?>
             </td>

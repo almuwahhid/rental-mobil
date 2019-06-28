@@ -6,13 +6,13 @@
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-          <h2 class="pageheader-title"><?= $data->merk ?> | <?= $data->kode_booking ?></h2>
+          <h2 class="pageheader-title"><?= $data->merk_kendaraan ?> | <?= $data->kode_booking ?></h2>
           <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
           <div class="page-breadcrumb">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('booking') ?>" class="breadcrumb-link">Booking</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?= $data->merk ?> | <?= $data->kode_booking ?></li>
+                <li class="breadcrumb-item active" aria-current="page"><?= $data->merk_kendaraan ?> | <?= $data->kode_booking ?></li>
               </ol>
             </nav>
           </div>
@@ -43,7 +43,7 @@
                   <tr>
                     <th scope="col">Status Booking</th>
                     <td><?php
-                    if($data->confirmed == "Y"){
+                    if($data->konfirmasi == "Y"){
                       echo "Diterima";
                     } else {
                       if($data->deleted_at != ""){
@@ -60,16 +60,16 @@
                   </tr>
                   <tr>
                     <th scope="col">Kendaraan yang disewa</th>
-                    <td><?= $data->merk ?></td>
+                    <td><?= $data->merk_kendaraan ?></td>
                   </tr>
                   <tr>
                     <th scope="col">Tanggal Pinjam</th>
-                    <td><?= $data->begin_date ?></td>
+                    <td><?= $data->tanggal_mulai ?></td>
 
                   </tr>
                   <tr>
                     <th scope="col">Tanggal Kembali</th>
-                    <td><?= $data->due_date ?></td>
+                    <td><?= $data->tanggal_berakhir ?></td>
 
                   </tr>
                   <tr>
@@ -83,11 +83,11 @@
                   <tr>
                     <th scope="col">Foto Konfirmasi Pembayaran</th>
                     <td><?php
-                      if($data->confirmation_photo == ""){
+                      if($data->konfirmasi_foto == ""){
                         echo "Belum ada Foto yang diupload";
                       } else {
                         ?>
-                        <img src="<?= base_url().'/confirm/'.$data->confirmation_photo?>" alt="user" class="rounded" width="400">
+                        <img src="<?= base_url().'/confirm/'.$data->konfirmasi_foto?>" alt="user" class="rounded" width="400">
                         <?php
                       }
                     ?></td>

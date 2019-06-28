@@ -69,10 +69,10 @@
                           <?= $booking->kode_booking ?>
                         </td>
                         <td>
-                          <?= $booking->begin_date ?>
+                          <?= $booking->tanggal_mulai ?>
                         </td>
                         <td>
-                          <?= $booking->due_date ?>
+                          <?= $booking->tanggal_berakhir ?>
                         </td>
                         <td>
                           Rp. <?= number_format($booking->biaya,2,',','.') ?>
@@ -80,7 +80,7 @@
                         <td>
                           <?php
                           $s = 0;
-                            if($booking->confirmed == "Y"){
+                            if($booking->konfirmasi == "Y"){
                               if($booking->deleted_at != ""){
                                 echo "Dibatalkan";
                               } else {
@@ -100,7 +100,7 @@
                             <i class="fas fa-search"></i>
                           </a> &nbsp;&nbsp;
                           <?php
-                            if($booking->deleted_at == "" && $booking->confirmed == "N"){
+                            if($booking->deleted_at == "" && $booking->konfirmasi == "N"){
                               ?>
                               <a href="#" class="btn btn-brand" onclick="redirectMessage('<?= base_url()."booking/konfirmasi?id=".$booking->id_booking."&status=1"; ?>', 'Apakah Anda yakin ingin mengkonfirmasi booking ini')">
                                 konfirmasi
@@ -234,7 +234,7 @@ function searchBooking(keyword){
 function konfirmasi(data){
   var konfirmasi = "";
   console.log("iki loo "+data);
-  if(data.delete == "" && data.confirmed == "N"){
+  if(data.delete == "" && data.konfirmasi == "N"){
     konfirmasi = '<a href="#" class="btn btn-brand" onclick="'+redirectMessage($("#url2").val()+'booking/konfirmasi?id='+data.id_booking+'&status=1', 'Apakah Anda yakin ingin mengkonfirmasi booking ini')+'">'+
       'konfirmasi'+
     '</a>&nbsp;&nbsp;'+
@@ -276,10 +276,10 @@ function appendData(result){
       result.kode_booking+
     '</td>'+
     '<td>'+
-      result.begin_date+
+      result.tanggal_mulai+
     '</td>'+
     '<td>'+
-      result.due_date+
+      result.tanggal_berakhir+
     '</td>'+
     '<td>Rp. '+
       result.biaya+

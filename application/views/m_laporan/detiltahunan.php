@@ -82,7 +82,7 @@
                 <?= $booking->nama_lengkap ?>
               </td>
               <td style="text-align:center">
-                <?= $booking->merk ?>
+                <?= $booking->merk_kendaraan ?>
               </td>
               <td>
                 <?php

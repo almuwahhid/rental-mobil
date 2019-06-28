@@ -7,13 +7,13 @@
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-          <h2 class="pageheader-title">Daftar Kendaraan </h2>
+          <h2 class="pageheader-title">Daftar Tarif Kendaraan </h2>
           <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
           <div class="page-breadcrumb">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Kendaraan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Daftar Kendaraan</li>
+                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Tarif Kendaraan</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Daftar Tarif Kendaraan</li>
               </ol>
             </nav>
           </div>
@@ -31,45 +31,41 @@
         <!-- ============================================================== -->
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
-            <h5 class="card-header">Kendaraan yang sudah ditambahkan</h5>
+            <h5 class="card-header">Model kendaraan yang sudah ditambahkan</h5>
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table">
                   <thead class="bg-light">
                     <tr class="border-0">
                       <th class="border-0 centerHorizontal" style="width:20px">No</th>
-                      <th class="border-0">Merk Kendaraan</th>
                       <th class="border-0">Tipe Kendaraan</th>
-                      <th class="border-0">Plat Nomor</th>
-                      <th class="border-0">Tarif</th>
+                      <th class="border-0">Merk Kendaraan</th>
+                      <th class="border-0">Tarif Kendaraan</th>
                       <th class="border-0">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                     $no = 0;
-                    foreach ($data['kendaraan'] as $k => $kendaraan) { ?>
+                    foreach ($data as $k => $tipe) { ?>
                       <tr>
                         <td class="centerHorizontal text-center">
                           <?= ++$no;?>
                         </td>
                         <td>
-                          <?= $kendaraan->merk_kendaraan ?>
+                          <?= $tipe->tipe_kendaraan ?>
                         </td>
                         <td>
-                          <?= $kendaraan->tipe_kendaraan ?>
+                          <?= $tipe->merk_kendaraan ?>
                         </td>
                         <td>
-                          <?= $kendaraan->plat_nomor ?>
+                          Rp. <?= number_format($tipe->tarif_kendaraan,2,',','.') ?>
                         </td>
                         <td>
-                          Rp. <?= number_format($kendaraan->tarif_kendaraan,2,',','.') ?>
-                        </td>
-                        <td>
-                          <a class="btn btn-success" href="<?= base_url()."kendaraan/detail/".$kendaraan->id_kendaraan; ?>">
+                          <a class="btn btn-success" href='<?= base_url()."/tarif/detail/".$tipe->id_tarif; ?>'>
                             <i class="fas fa-edit"></i>
                           </a> &nbsp;&nbsp;
-                          <a href="#" onclick="redirect('<?= base_url()."/kendaraan/deletekendaraan?id_kendaraan=".$kendaraan->id_kendaraan; ?>')">
+                          <a href="#" onclick="redirect('<?= base_url()."/tarif/delete?id=".$tipe->id_tarif; ?>')">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
@@ -77,31 +73,6 @@
                       <?php }?>
                   </tbody>
                 </table>
-              </div>
-              <div class="col-md-12">
-                <nav aria-label="Page navigation">
-                  <ul class="pagination">
-                    <?php
-                    if($data['jumlah']>1){
-                      for($i=1;$i<=$data['jumlah'];$i++){
-                        if(isset($data['page'])){
-                          if($data['page']==$i){
-                            echo '<li class="page-item active"><a class="page-link">'.$i.'</a></li>';
-                          }else{
-                            echo "<li class='page-item'><a class='page-link' href='?r=".$i."'>".$i."</a></li>";
-                          }
-                        }else{
-                          if($i==1){
-                            echo '<li class="active page-item"><a class="page-link">'.$i.'</a></li>';
-                          }else{
-                            echo "<li class='page-item'><a class='page-link' href='?r=".$i."'>".$i."</a></li>";
-                          }
-                        }
-                      }
-                    }
-                    ?>
-                  </ul>
-                </nav>
               </div>
             </div>
           </div>

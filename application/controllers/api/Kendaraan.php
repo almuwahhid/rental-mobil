@@ -23,26 +23,27 @@ class Kendaraan extends Base_api {
                     'id_model'           => $knd->id_model,
                     'nama_model'           => $knd->nama_model,
                     'plat_nomor'           => $knd->plat_nomor,
-                    'merk'           => $knd->merk,
-                    'tipe'           => $knd->tipe,
+                    'merk_kendaraan'           => $knd->merk_kendaraan,
+                    'tipe_kendaraan'           => $knd->tipe_kendaraan,
                     'tahun_pembuatan'           => $knd->tahun_pembuatan,
                     'isi_silinder'           => $knd->isi_silinder,
                     'nomor_rangka'           => $knd->nomor_rangka,
                     'nomor_mesin'           => $knd->nomor_mesin,
-                    'tarif'           => $knd->tarif
+                    'foto_kendaraan'           => $this->config->base_url().'datas/'.$knd->foto_kendaraan,
+                    'tarif_kendaraan'           => $knd->tarif_kendaraan
                     );
         if($this->book_model->status_book($knd->id_kendaraan)){
           $datak['available'] = false;
         } else {
           $datak['available'] = true;
         }
-        $data_album = array();
-        $album = $this->kendaraan_model->getAlbum($knd->id_kendaraan);
-        foreach ($album as $k => $albm) {
-          $album_d = $this->config->base_url().'datas/'.$albm->photo;
-          array_push($data_album, $album_d);
-        }
-        $datak['photos'] = $data_album;
+        // $data_album = array();
+        // $album = $this->kendaraan_model->getAlbum($knd->id_kendaraan);
+        // foreach ($album as $k => $albm) {
+        //   $album_d = $this->config->base_url().'datas/'.$albm->photo;
+        //   array_push($data_album, $album_d);
+        // }
+        // $datak['photos'] = $data_album;
         array_push($kendaraans, $datak);
       }
       $data = array(
