@@ -21,11 +21,12 @@ class Kendaraan extends BaseController {
 	}
 
 	public function index() {
-    $page = $this->input->get('p');
+    $page = $this->input->get('page');
 		$kendaraan = $this->kendaraan_model->get($page);
 		$jumlah = $this->kendaraan_model->totalKendaraan();
     $asd['kendaraan'] = $kendaraan;
     $asd['jumlah'] = $jumlah;
+    $asd['page'] = $page;
     parent::getView('m_rentcar/listrentcar', 'kendaraan', $asd);
 	}
 
@@ -64,7 +65,6 @@ class Kendaraan extends BaseController {
 				if($this->input->post('action') === 'tambah') {
 					$photo_name = $this->kendaraan_model->totalKendaraan()."_".str_replace(" ","_", $_FILES['photo']['name']);
 					$data = array(
-	            'merk' => $merk,
 	            'id_model' => $model,
 	            'id_tarif' => $id_tarif,
 							'plat_nomor' => $plat_nomor,

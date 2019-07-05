@@ -3,12 +3,12 @@
 <head>
   <title>Report Table</title>
   <style type="text/css">
-    #outtable{
-      padding: 20px;
-      border:1px solid #e3e3e3;
-      width:650px;
-      border-radius: 5px;
-    }
+  #outtable{
+    padding: 20px;
+    border:1px solid #e3e3e3;
+    width:960px;
+    border-radius: 5px;
+  }
     .short{
 
     }
@@ -57,11 +57,14 @@
 	  		<tr>
 	  			<th class="short" style="text-align:center">No</th>
 	  			<th class="normal" style="text-align:center">Kode Booking</th>
-	  			<th class="normal" style="text-align:center">Nama Penyewa</th>
+	  			<th class="normal" style="text-align:center;width:140px">Nama Penyewa</th>
 	  			<th class="normal" style="text-align:center">Merk Mobil</th>
 	  			<th class="normal" style="text-align:center">Tanggal Sewa</th>
-	  			<th class="normal" style="text-align:center">Tanggal Kembali</th>
+	  			<th class="normal" style="text-align:center">Jatuh Tempo</th>
+	  			<th class="normal" style="text-align:center">Kembali</th>
+
 	  			<th class="normal" style="text-align:center">Biaya</th>
+          <th class="normal" style="text-align:center">Denda</th>
 	  		</tr>
 	  	</thead>
 	  	<tbody>
@@ -74,26 +77,59 @@
             <td style="text-align:center">
               <?= $booking->kode_booking ?>
             </td>
-            <td>
+            <td style="text-align:center;width:140px">
               <?= $booking->nama_lengkap ?>
             </td>
             <td style="text-align:center">
-              <?= $booking->merk_kendaraan ?>
+              <?= $booking->merk_kendaraan." ".$booking->tipe_kendaraan ?>
             </td>
             <td>
               <?php
                 $timestamp = strtotime($booking->tanggal_mulai);
-                echo date('m/d/Y H:i:s', $timestamp)
+                echo date('d/m/Y H:i:s', $timestamp)
               ?>
             </td>
             <td>
               <?php
               $timestamp = strtotime($booking->tanggal_berakhir);
-              echo date('m/d/Y H:i:s', $timestamp)
+              echo date('d/m/Y H:i:s', $timestamp)
+               ?>
+            </td>
+            <td>
+              <?php
+              $timestamp = strtotime($booking->waktu_pengembalian);
+              echo date('d/m/Y H:i:s', $timestamp)
                ?>
             </td>
             <td>
               Rp. <?= number_format($booking->biaya,2,',','.') ?>
+            </td>
+            <td style="text-align:center;">
+              <?php
+                if($booking->waktu_pengembalian == "0000-00-00 00:00:00"){
+                  echo "-";
+                } else {
+                  $start = new \DateTime($booking->tanggal_berakhir);
+                  $end = new \DateTime($booking->waktu_pengembalian);
+
+                  //determine what interval should be used - can change to weeks, months, etc
+                  $interval = new \DateInterval('PT1H');
+
+                  //create periods every hour between the two dates
+                  $periods = new \DatePeriod($start, $interval, $end);
+
+                  //count the number of objects within the periods
+                  $hours = iterator_count($periods);
+                  if($hours > 0){
+                    $biayakredit = $hours*20000;
+                    ?>
+                      Rp. <?= number_format($biayakredit,2,',','.') ?>
+                    <?php
+                  } else {
+                    echo "-";
+                  }
+                }
+               ?>
             </td>
           </tr>
         <?php $no++; ?>

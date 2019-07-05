@@ -91,10 +91,10 @@
                   <label for="exampleFormControlTextarea1">Nomor Mesin</label>
                   <input required name="nomor_mesin" id="inputText3" type="text" class="form-control">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="exampleFormControlTextarea1">Tarif Kendaraan per hari</label>
                   <input required name="tarif" id="tarif" type="text" class="uang form-control">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1">Foto Kendaraan</label>
                   <div class="custom-file mb-3" style="margin-top:20px">

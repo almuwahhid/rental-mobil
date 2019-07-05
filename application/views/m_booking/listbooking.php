@@ -43,6 +43,7 @@
                       <th class="border-0 centerHorizontal" style="width:20px">No</th>
                       <th class="border-0">Nama Penyewa</th>
                       <th class="border-0">Kode Booking</th>
+                      <th class="border-0">Tanggal Submit</th>
                       <th class="border-0">Tanggal Sewa</th>
                       <th class="border-0">Tanggal Kembali</th>
                       <th class="border-0">Biaya</th>
@@ -67,6 +68,9 @@
                         </td>
                         <td>
                           <?= $booking->kode_booking ?>
+                        </td>
+                        <td>
+                          <?= $booking->kirimkan_tanggal ?>
                         </td>
                         <td>
                           <?= $booking->tanggal_mulai ?>

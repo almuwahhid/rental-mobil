@@ -48,6 +48,10 @@
                   <tbody>
                     <?php
                     $no = 0;
+                    if(isset($data['page'])){
+                      $no = 4*$data['page'] - 4;
+                    }
+
                     foreach ($data['kendaraan'] as $k => $kendaraan) { ?>
                       <tr>
                         <td class="centerHorizontal text-center">
@@ -88,13 +92,13 @@
                           if($data['page']==$i){
                             echo '<li class="page-item active"><a class="page-link">'.$i.'</a></li>';
                           }else{
-                            echo "<li class='page-item'><a class='page-link' href='?r=".$i."'>".$i."</a></li>";
+                            echo "<li class='page-item'><a class='page-link' href='?page=".$i."'>".$i."</a></li>";
                           }
                         }else{
                           if($i==1){
                             echo '<li class="active page-item"><a class="page-link">'.$i.'</a></li>';
                           }else{
-                            echo "<li class='page-item'><a class='page-link' href='?r=".$i."'>".$i."</a></li>";
+                            echo "<li class='page-item'><a class='page-link' href='?page=".$i."'>".$i."</a></li>";
                           }
                         }
                       }

@@ -38,13 +38,13 @@ class Laporan extends BaseController {
 			$datak = array();
 			$datak['bulan'] = $bulan;
 			$datak['datas'] = $datas;
-			array_push($result['tahunan'], $datak);
 
+			array_push($result['tahunan'], $datak);
 		endforeach;
 
 		$html = $this->load->view('m_laporan/detiltahunan', ['data' => $result], true);
     $filename = 'report_'.time();
-    $this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+    $this->pdfgenerator->generate($html, $filename, true, 'A4', 'landscape');
 		// parent::getView('m_laporan/detiltahunan', 'laporan', $result);
 	}
 
@@ -60,7 +60,7 @@ class Laporan extends BaseController {
 
 		$html = $this->load->view('m_laporan/detailbulanan', ['data' => $result], true);
     $filename = 'report_'.time();
-    $this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+    $this->pdfgenerator->generate($html, $filename, true, 'A4', 'landscape');
 	}
 
 	public function bulanan(){
