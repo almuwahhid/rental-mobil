@@ -64,6 +64,7 @@
 	  			<th class="normal" style="text-align:center">Kembali</th>
 
 	  			<th class="normal" style="text-align:center">Biaya</th>
+          <th class="normal" style="text-align:center">Keterlambatan</th>
           <th class="normal" style="text-align:center">Denda</th>
 	  		</tr>
 	  	</thead>
@@ -95,14 +96,39 @@
               echo date('d/m/Y H:i:s', $timestamp)
                ?>
             </td>
-            <td>
+            <td style="text-align:center">
               <?php
-              $timestamp = strtotime($booking->waktu_pengembalian);
-              echo date('d/m/Y H:i:s', $timestamp)
+              if($booking->waktu_pengembalian == "0000-00-00 00:00:00"){
+                echo "-";
+              } else {
+                $timestamp = strtotime($booking->waktu_pengembalian);
+                echo date('d/m/Y H:i:s', $timestamp);
+              }
                ?>
             </td>
             <td>
               Rp. <?= number_format($booking->biaya,2,',','.') ?>
+            </td>
+            <td style="text-align:center;">
+              <?php
+                if($booking->waktu_pengembalian == "0000-00-00 00:00:00"){
+                  echo "-";
+                } else {
+                  $start = new \DateTime($booking->tanggal_berakhir);
+                  $end = new \DateTime($booking->waktu_pengembalian);
+                  //determine what interval should be used - can change to weeks, months, etc
+                  $interval = new \DateInterval('PT1H');
+                  //create periods every hour between the two dates
+                  $periods = new \DatePeriod($start, $interval, $end);
+                  //count the number of objects within the periods
+                  $hours = iterator_count($periods);
+                  if($hours > 0){
+                    echo $hours." jam";
+                  } else {
+                    echo "-";
+                  }
+                }
+               ?>
             </td>
             <td style="text-align:center;">
               <?php
