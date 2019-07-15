@@ -46,6 +46,7 @@ class Kendaraan extends BaseController {
 		}
 		parent::getView('m_rentcar/detailrentcar', 'kendaraan', $data);
 	}
+
 	public function tambah(){
 		$data['model'] = $this->tipe_model->get();
 		$data['tarif'] = $this->tarif_model->get();

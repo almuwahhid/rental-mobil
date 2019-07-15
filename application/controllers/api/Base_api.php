@@ -10,8 +10,8 @@ class Base_api extends CI_Controller {
     $this->load->model('book_model');
     $this->book_model->updateBookAfter60();
 
-    $this->smtp_user = "djunkir@gmail.com";
-    $this->smtp_pass = "djunkir@321";
+    $this->smtp_user = "idskitaran@gmail.com";
+    $this->smtp_pass = "1muwahh1d";
   }
 
   public function send_email( $email, $subject, $body ){
