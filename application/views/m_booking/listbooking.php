@@ -46,6 +46,7 @@
                       <th class="border-0">Tanggal Submit</th>
                       <th class="border-0">Tanggal Sewa</th>
                       <th class="border-0">Tanggal Kembali</th>
+                      <th class="border-0" class="text-center">Pengembalian</th>
                       <th class="border-0">Biaya</th>
                       <th class="border-0">Status</th>
                       <th class="border-0 text-center">Aksi</th>
@@ -77,6 +78,16 @@
                         </td>
                         <td>
                           <?= $booking->tanggal_berakhir ?>
+                        </td>
+                        <td>
+                          <?php
+                          if($booking->waktu_pengembalian == "0000-00-00 00:00:00"){
+                            echo "-";
+                          } else {
+                            $timestamp = strtotime($booking->waktu_pengembalian);
+                            echo date('d/m/Y H:i:s', $timestamp);
+                          }
+                          ?>
                         </td>
                         <td>
                           Rp. <?= number_format($booking->biaya,2,',','.') ?>

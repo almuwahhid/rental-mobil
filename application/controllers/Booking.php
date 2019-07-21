@@ -49,5 +49,16 @@ class Booking extends BaseController {
 		}
 	}
 
+	public function kembalikan(){
+    $id_booking = $this->input->get('id');
+    $pengembalian = date('Y-m-d H:i:s');
+    $result = array();
+    $params = array('waktu_pengembalian' => $pengembalian);
+    $insert = $this->main_model->update($params, 'booking', ['id_booking' => $id_booking]);
+
+    if($insert){
+      redirect('booking/detail/'.$id_booking);
+    }
+  }
 
 }

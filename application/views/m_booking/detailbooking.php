@@ -70,7 +70,27 @@
                   <tr>
                     <th scope="col">Tanggal Kembali</th>
                     <td><?= $data->tanggal_berakhir ?></td>
-
+                  </tr>
+                  <tr>
+                    <th scope="col">Pengembalian</th>
+                    <td>
+                      <?php
+                      if($data->waktu_pengembalian == "0000-00-00 00:00:00"){
+                        if($data->konfirmasi == "Y" && $data->deleted_at != ""){
+                        ?>
+                        <a href="#" class="btn btn-brand" onclick="redirectMessage('<?= base_url()."booking/kembalikan?id=".$data->id_booking; ?>', 'Apakah Anda yakin ingin mengkonfirmasi pengembalian booking ini')">
+                          Konfirmasi Pengembalian
+                        </a>
+                        <?php
+                      } else {
+                        echo "Tidak Ada";
+                      }
+                      } else {
+                        $timestamp = strtotime($data->waktu_pengembalian);
+                        echo date('d/m/Y H:i:s', $timestamp);
+                      }
+                      ?>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="col">Jaminan</th>
